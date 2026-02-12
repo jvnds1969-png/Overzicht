@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Zorgstart — Dual Flow + Lexicon + Bundels (Full)</title>
+
+<style>
+:root{
+  --bg:#0b1220;
+  --bg2:#070b14;
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.70);
+  --stroke:rgba(255,255,255,.12);
+  --shadow:0 18px 55px rgba(0,0,0,.45);
+  --shadow2:0 10px 26px rgba(0,0,0,.28);
+
+  --blue:#5dd6ff;
+  --purple:#7c5cff;
+  --green:#48d597;
+  --amber:#ffd166;
+  --red:#ff6b6b;
+
+  --r:18px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--text);
+  background:
+    radial-gradient(1100px 700px at 15% 6%, rgba(93,214,255,.18), transparent 60%),
+    radial-gradient(950px 700px at 88% 10%, rgba(124,92,255,.20), transparent 62%),
+    radial-gradient(900px 700px at 30% 92%, rgba(255,209,102,.10), transparent 60%),
+    linear-gradient(180deg, var(--bg2) 0%, var(--bg) 45%, var(--bg2) 100%);
+  overflow-x:hidden;
+}
+
+.gridbg{
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(closest-side at 50% 35%, rgba(0,0,0,.65), transparent 85%);
+  pointer-events:none;
+  opacity:.55;
+}
+
+.wrap{max-width:1220px;margin:0 auto;padding:30px 18px 90px;}
+
+header{
+  display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.pill{
+  display:inline-flex;gap:10px;align-items:center;
+  padding:8px 12px;border:1px solid var(--stroke);
+  background:rgba(255,255,255,.04);
+  border-radius:999px;backdrop-filter: blur(10px);
+  box-shadow: var(--shadow2);
+}
+.dot{
+  width:10px;height:10px;border-radius:999px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  box-shadow:0 0 0 6px rgba(93,214,255,.12);
+}
+h1{
+  margin:10px 0 4px;
+  font-size:clamp(26px,3.1vw,40px);
+  letter-spacing:-0.02em;
+  line-height:1.06;
+}
+.sub{
+  margin:0;
+  color:var(--muted);
+  line-height:1.45;
+  max-width:920px;
+  font-size:15.5px;
+}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.btn{
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  box-shadow:var(--shadow2);
+  font-weight:800;
+  letter-spacing:.01em;
+}
+.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08);border-color:rgba(93,214,255,.35)}
+.btn:active{transform:translateY(0) scale(.99)}
+
+.kbd{
+  font-family:var(--mono);
+  font-size:12px;
+  opacity:.85;
+  padding:2px 8px;
+  border-radius:10px;
+  border:1px solid var(--stroke);
+  background:rgba(0,0,0,.18);
+}
+
+.panel{
+  border:1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  margin-top:14px;
+}
+
+.head{
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+}
+
+.title{
+  display:flex;gap:10px;align-items:center;
+  font-weight:900;letter-spacing:-.01em;
+}
+
+.badge{
+  font-size:12px;padding:4px 10px;border-radius:999px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.05);
+  color:var(--muted);
+}
+
+.legend{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:12px;
+}
+.leg{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,255,255,.09);
+  padding:6px 10px;border-radius:999px;
+  background:rgba(0,0,0,.10);
+}
+.swatch{width:10px;height:10px;border-radius:999px;outline:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.22)}
+.swatch.blue{background:linear-gradient(135deg,var(--blue),#2fb7ff)}
+.swatch.purple{background:linear-gradient(135deg,var(--purple),#a389ff)}
+.swatch.green{background:linear-gradient(135deg,var(--green),#20c997)}
+.swatch.amber{background:linear-gradient(135deg,var(--amber),#ff9f1c)}
+.swatch.red{background:linear-gradient(135deg,var(--red),#ff3b3b)}
+
+.section{padding:14px}
+
+.grid2{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:1020px){.grid2{grid-template-columns:1fr 1fr}}
+
+.block{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  background:rgba(0,0,0,.12);
+  padding:14px;
+  position:relative;
+  overflow:hidden;
+}
+.block::before{
+  content:"";
+  position:absolute;inset:-80px;
+  background:
+    radial-gradient(closest-side at 20% 15%, rgba(93,214,255,.10), transparent 55%),
+    radial-gradient(closest-side at 75% 35%, rgba(124,92,255,.12), transparent 60%);
+  opacity:.9;pointer-events:none;
+}
+
+.block h3{
+  margin:0 0 10px;
+  font-size:16px;
+  position:relative;z-index:1;
+  display:flex;justify-content:space-between;gap:10px;align-items:center;
+}
+.mini{font-size:12px;color:var(--muted);font-weight:800;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tag{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);padding:4px 8px;border-radius:999px}
+
+.nodes{display:grid;gap:10px;position:relative;z-index:1}
+
+.node{
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  padding:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.22);
+  display:flex;gap:12px;align-items:flex-start;
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,opacity .18s ease;
+}
+.node:hover{transform:translateY(-2px);border-color:rgba(93,214,255,.38);background:rgba(255,255,255,.085)}
+
+.icon{
+  width:34px;height:34px;border-radius:12px;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.05);
+  flex:0 0 auto;
+}
+.icon.blue{border-color:rgba(93,214,255,.25);background:rgba(93,214,255,.12)}
+.icon.purple{border-color:rgba(124,92,255,.25);background:rgba(124,92,255,.14)}
+.icon.green{border-color:rgba(72,213,151,.25);background:rgba(72,213,151,.12)}
+.icon.amber{border-color:rgba(255,209,102,.25);background:rgba(255,209,102,.12)}
+.icon.red{border-color:rgba(255,107,107,.25);background:rgba(255,107,107,.12)}
+.icon svg{width:18px;height:18px;opacity:.95}
+
+.node b{display:block;font-size:14px;letter-spacing:-.01em;margin-bottom:4px}
+.node p{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
+.node small{display:block;margin-top:6px;color:rgba(255,255,255,.70);font-family:var(--mono);font-size:11.5px;opacity:.9}
+
+.arrow{
+  height:18px;display:grid;place-items:center;opacity:.75;
+}
+.arrow svg{width:16px;height:16px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+
+hr.sep{border:0;border-top:1px dashed rgba(255,255,255,.16);margin:12px 0}
+
+.flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.details{
+  margin-top:10px;padding:12px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(0,0,0,.16);
+  display:none;
+}
+.details.show{display:block}
+.details h4{margin:0 0 8px;font-size:14px;color:rgba(255,255,255,.90)}
+.details ul{margin:0;padding-left:18px;color:var(--muted)}
+.details li{margin:6px 0}
+
+.pulse{animation:pulse 1.1s ease-in-out 1}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(93,214,255,.0)}
+  30%{box-shadow:0 0 0 10px rgba(93,214,255,.10)}
+  100%{box-shadow:0 0 0 0 rgba(93,214,255,.0)}
+}
+
+/* Timeline */
+.timeline{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:1020px){.timeline{grid-template-columns:1.2fr .8fr}}
+
+.sliderRow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+input[type="range"]{width:min(540px,100%)}
+.timeLabel{
+  font-family:var(--mono);
+  font-size:12px;
+  padding:5px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.16);
+  color:rgba(255,255,255,.86);
+}
+.docgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:1020px){.docgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.doc{
+  border-radius:14px;border:1px solid rgba(255,255,255,.11);
+  background:rgba(255,255,255,.05);
+  padding:10px;box-shadow:0 10px 22px rgba(0,0,0,.18);
+  opacity:.55;
+  transition:opacity .18s ease,transform .18s ease,border-color .18s ease;
+}
+.doc.on{opacity:1;transform:translateY(-1px);border-color:rgba(72,213,151,.35)}
+.doc b{display:block;font-size:13px;margin-bottom:5px}
+.doc span{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.76)}
+
+/* Stoplights */
+.lights{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.light{
+  width:14px;height:14px;border-radius:50%;
+  background:rgba(255,255,255,.20);
+  border:1px solid rgba(255,255,255,.18);
+  cursor:pointer;
+  position:relative;
+}
+.light::after{
+  content:attr(data-l);
+  position:absolute;top:-24px;left:50%;
+  transform:translateX(-50%);
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:rgba(255,255,255,.75);
+  opacity:0;transition:opacity .15s ease;white-space:nowrap;
+}
+.light:hover::after{opacity:1}
+.light.med{background:rgba(255,209,102,.35)}
+.light.hosp{background:rgba(124,92,255,.35)}
+.light.home{background:rgba(93,214,255,.35)}
+.light.ok{background:rgba(72,213,151,.55);border-color:rgba(72,213,151,.55)}
+.statusLine{font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.78)}
+
+/* Lexicons */
+.lexRow{display:flex;gap:10px;flex-wrap:wrap}
+.lex{
+  border-radius:999px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  padding:6px 10px;
+  font-family:var(--mono);font-size:12px;
+  color:rgba(255,255,255,.86);
+  cursor:pointer;
+  transition:transform .15s ease,border-color .15s ease,background .15s ease,opacity .15s ease;
+  opacity:.7;
+}
+.lex:hover{transform:translateY(-1px);border-color:rgba(93,214,255,.35);background:rgba(255,255,255,.08);opacity:1}
+.lex.on{opacity:1;border-color:rgba(93,214,255,.45);background:rgba(93,214,255,.10)}
+.lex.active{opacity:1;border-color:rgba(255,209,102,.55);background:rgba(255,209,102,.10)}
+
+/* Probleemgebieden */
+.pbGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:1020px){.pbGrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.pb{
+  border-radius:14px;border:1px solid rgba(255,255,255,.11);
+  background:rgba(124,92,255,.08);
+  padding:10px;
+  opacity:.50;
+  transition:opacity .18s ease,transform .18s ease,border-color .18s ease;
+}
+.pb.on{opacity:1;transform:translateY(-1px);border-color:rgba(124,92,255,.40)}
+.pb b{display:block;font-size:13px;margin-bottom:5px}
+.pb span{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.76)}
+
+/* Bundles */
+.bundleGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:1020px){.bundleGrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.bundle{
+  border-radius:16px;border:1px solid rgba(255,255,255,.11);
+  background:rgba(72,213,151,.08);
+  padding:12px;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+  opacity:.45;
+  transition:opacity .18s ease,transform .18s ease,border-color .18s ease;
+  cursor:pointer;
+}
+.bundle.on{opacity:1;transform:translateY(-1px);border-color:rgba(72,213,151,.35)}
+.bundle b{display:block;margin-bottom:6px}
+.bundle ul{margin:0;padding-left:16px;color:var(--muted);font-size:12.5px}
+.bundle li{margin:4px 0}
+
+.publishBox{
+  margin-top:12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.16);
+  padding:12px;
+  display:none;
+}
+.publishBox.show{display:block}
+.publishBox h4{margin:0 0 8px;font-size:14px}
+.publishBox .row{
+  display:grid;grid-template-columns:1fr;gap:10px;
+}
+@media(min-width:1020px){.publishBox .row{grid-template-columns:1fr 1fr}}
+.outCard{
+  border-radius:14px;border:1px solid rgba(255,255,255,.11);
+  background:rgba(255,255,255,.05);
+  padding:10px;
+}
+.outCard b{display:block;margin-bottom:6px}
+.outCard p{margin:0;color:var(--muted);font-size:12.8px;line-height:1.35}
+
+.smallNote{color:var(--muted);font-size:12.5px;line-height:1.35}
+
+/* Focus mode */
+.focus .node, .focus .doc, .focus .lex, .focus .pb, .focus .bundle{opacity:.30 !important}
+.focus .active{opacity:1 !important}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .5s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+footer{
+  margin-top:18px;
+  color:var(--muted);
+  font-size:12px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  opacity:.9;
+}
+</style>
+</head>
+
+<body>
+<div class="gridbg" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="reveal">
+    <div style="max-width:930px">
+      <div class="pill"><span class="dot"></span><span><b>Zorgstart</b> — Dual Flow + Lexicon + Bundels</span><span class="kbd">full schema</span></div>
+      <h1>Van documenten & context naar probleemgebieden en zorgbundels</h1>
+      <p class="sub">
+        1) Documenten worden gescrapet in <b>OnePatient (Bingli)</b> → PHR/gestructureerde data.
+        2) Context komt via <b>slimme vragenlijst</b>.
+        3) <b>Lexicons</b> detecteren probleemgebieden.
+        4) Zorgstart stelt <b>zorgbundels</b> voor en publiceert een coherent plan.
+      </p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="simulateAll">Simuleer demo</button>
+      <button class="btn" id="toggleFocus">Focus mode</button>
+      <button class="btn" id="reset">Reset</button>
+      <span class="kbd">klik op elementen</span>
+    </div>
+  </header>
+
+  <!-- TIMELINE -->
+  <section class="panel reveal">
+    <div class="head">
+      <div class="title">
+        <span class="swatch blue"></span><span>Documenten & timing</span><span class="badge">dag 0 → 14</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch green"></span> beschikbaar</span>
+        <span class="leg"><span class="swatch"></span> nog niet</span>
+      </div>
+    </div>
+
+    <div class="section timeline">
+      <div>
+        <div class="sliderRow">
+          <b>Timeline</b>
+          <input type="range" id="day" min="0" max="14" value="1"/>
+          <span class="timeLabel" id="dayLabel">Dag 1</span>
+          <span class="kbd">sleep</span>
+        </div>
+        <p class="smallNote" style="margin:8px 0 0">
+          Pre-planning start op dag 0–1 met minimum-info; finalisatie gebeurt in laatste 48u (ontsagbrief+medicatie+voorschriften).
+        </p>
+      </div>
+
+      <div class="block" style="padding:12px">
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">📄 Beschikbare documenten (simulatie)</h3>
+        <div class="docgrid">
+          <div class="doc" data-doc="opname"><b>Opname-/spoedverslag</b><span>dag 0</span></div>
+          <div class="doc" data-doc="problem"><b>Probleemlijst / EPD</b><span>dag 0–1</span></div>
+          <div class="doc" data-doc="nursing"><b>Verpleegkundige inschatting</b><span>dag 1–2</span></div>
+          <div class="doc" data-doc="paramed"><b>Kine/Ergo verslag</b><span>dag 2–3</span></div>
+          <div class="doc" data-doc="soc"><b>Sociaal verslag / context</b><span>dag 1–3</span></div>
+          <div class="doc" data-doc="discharge"><b>Definitieve ontslagbrief</b><span>laatste 48u</span></div>
+          <div class="doc" data-doc="meds"><b>Finale medicatie</b><span>laatste 48u</span></div>
+          <div class="doc" data-doc="rx"><b>Voorschriften/attesten</b><span>laatste 48u</span></div>
+          <div class="doc" data-doc="appts"><b>Afsprakenlijst</b><span>laatste 48u</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL FLOW -->
+  <section class="panel reveal" id="core">
+    <div class="head">
+      <div class="title">
+        <span class="swatch blue"></span><span>Dubbele flow</span><span class="badge">PHR + vragenlijst</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch blue"></span> Flow 1</span>
+        <span class="leg"><span class="swatch purple"></span> Flow 2</span>
+        <span class="leg"><span class="swatch amber"></span> Stoplicht</span>
+      </div>
+    </div>
+
+    <div class="section grid2">
+      <!-- FLOW 1 -->
+      <div class="block">
+        <h3>
+          <span>🔵 Flow 1 — Documenten → OnePatient (Bingli) → PHR</span>
+          <span class="mini"><span class="tag">gestructureerde medische data</span></span>
+        </h3>
+
+        <div class="nodes">
+          <div class="node" data-key="f1a">
+            <div class="icon blue">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l3 3v15H7V3z" stroke="white" stroke-width="2"/><path d="M14 3v4h4" stroke="white" stroke-width="2"/></svg>
+            </div>
+            <div>
+              <b>Upload medische documenten</b>
+              <p>Opnameverslag, probleemlijst, evolutie, later ontslagbrief & medicatie.</p>
+              <small>Input: PDF/DOCX</small>
+            </div>
+          </div>
+
+          <div class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M7 14l5 5 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="node" data-key="f1b">
+            <div class="icon blue">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6z" stroke="white" stroke-width="2"/><path d="M8 10h8M8 14h6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <b>Scrape in OnePatient</b>
+              <p>Extractie → diagnoses, medicatie, procedures, evolutie (gestructureerd).</p>
+              <small>Output: structured fields</small>
+            </div>
+          </div>
+
+          <div class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M7 14l5 5 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="node" data-key="f1c">
+            <div class="icon blue">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c4 0 7 3 7 7v8H5V10c0-4 3-7 7-7z" stroke="white" stroke-width="2"/><path d="M9 21h6" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <b>PHR + gestructureerde medische data</b>
+              <p>Episode + historiek → basis voor acute én chronische flags.</p>
+              <small>Continuïteit mogelijk</small>
+            </div>
+          </div>
+
+          <div class="details" id="d_f1">
+            <h4>Wat haalt Zorgstart hieruit?</h4>
+            <ul>
+              <li>Acute episode: diagnose/ingreep/complicaties/follow-up</li>
+              <li>Chronische flags: comorbiditeit, polyfarmacie</li>
+              <li>Wijzigingen: medicatieverschillen, nieuwe acties</li>
+            </ul>
+          </div>
+
+          <div class="flex">
+            <button class="btn" data-sim="upload">Simuleer upload</button>
+            <button class="btn" data-sim="scrape">Simuleer scrape + PHR</button>
+            <button class="btn" data-toggle="d_f1">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FLOW 2 -->
+      <div class="block">
+        <h3>
+          <span>🟣 Flow 2 — Slimme vragenlijst → contextuele data</span>
+          <span class="mini"><span class="tag">thuisuitvoerbaarheid</span><span class="tag">spoed + opname</span></span>
+        </h3>
+
+        <div class="nodes">
+          <div class="node" data-key="f2a">
+            <div class="icon purple">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="white" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h7" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <b>Adaptieve vragenlijst (3–5 min)</b>
+              <p>Wooncontext, mantelzorg, ADL, hulpmiddelen, veiligheid.</p>
+              <small>Input: patiënt/mantelzorger/staff</small>
+            </div>
+          </div>
+
+          <div class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M7 14l5 5 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <div class="node" data-key="f2b">
+            <div class="icon purple">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 017 7v6H5V9a7 7 0 017-7z" stroke="white" stroke-width="2"/><path d="M8 21h8" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <b>Contextprofiel + ketenrisico’s</b>
+              <p>THUIS-stoppers vroeg detecteren + randvoorwaarden voor ontslag.</p>
+              <small>Output: risk flags</small>
+            </div>
+          </div>
+
+          <div class="details" id="d_f2">
+            <h4>Voorbeeldvragen (kort)</h4>
+            <ul>
+              <li>Woont u alleen? Is er dagelijks iemand aanwezig?</li>
+              <li>Trappen tussen slaapkamer/badkamer/leefruimte?</li>
+              <li>Wie beheert medicatie en afspraken?</li>
+              <li>Hulpmiddelen nodig (rollator/bed/toilet)?</li>
+              <li>Recente vallen? cognitieve verwarring?</li>
+            </ul>
+          </div>
+
+          <div class="flex">
+            <button class="btn" data-sim="questionnaire">Simuleer vragenlijst</button>
+            <button class="btn" data-toggle="d_f2">Vragen</button>
+          </div>
+
+          <hr class="sep"/>
+
+          <div class="flex" style="justify-content:space-between">
+            <div class="lights">
+              <span class="kbd">Stoplicht:</span>
+              <span class="light med ok" data-l="MED" data-light="med"></span>
+              <span class="light hosp ok" data-l="HOSP" data-light="hosp"></span>
+              <span class="light home" data-l="THUIS" data-light="home"></span>
+              <span class="kbd">klik</span>
+            </div>
+            <div class="statusLine" id="stopStatus">Status: MED=groen · HOSP=groen · THUIS=geel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEXICONS + PROBLEEMGEBIEDEN -->
+  <section class="panel reveal" id="lex">
+    <div class="head">
+      <div class="title">
+        <span class="swatch purple"></span><span>Lexicons → probleemgebieden</span><span class="badge">matchlaag</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch purple"></span> lexicon actief</span>
+        <span class="leg"><span class="swatch green"></span> probleemgebied gedetecteerd</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="block" style="padding:12px">
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">
+          <span>🧠 Lexicon selectie</span>
+          <span class="mini"><span class="tag">klik</span><span class="tag">of gebruik “Run”</span></span>
+        </h3>
+
+        <div class="lexRow" id="lexRow">
+          <div class="lex" data-lex="cardio">CARDIO</div>
+          <div class="lex" data-lex="wound">WOUND/POST-OP</div>
+          <div class="lex" data-lex="frailty">FRAILTY</div>
+          <div class="lex" data-lex="polypharm">POLYFARMACIE</div>
+          <div class="lex" data-lex="cog">COGNITIE</div>
+          <div class="lex" data-lex="falls">VALRISICO</div>
+          <div class="lex" data-lex="resp">RESPIRATOIR</div>
+          <div class="lex" data-lex="pain">PIJN</div>
+        </div>
+
+        <div class="flex" style="margin-top:12px">
+          <button class="btn" id="runLex">Run lexicons</button>
+          <button class="btn" id="clearLex">Clear</button>
+          <span class="kbd" id="lexHint">Tip: simuleer eerst “scrape” + “vragenlijst” voor rijkere matches</span>
+        </div>
+
+        <hr class="sep"/>
+
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">🎯 Probleemgebieden (output)</h3>
+        <div class="pbGrid" id="pbGrid">
+          <div class="pb" data-pb="pb_cardio"><b>Cardio</b><span>cardio/hartfalen</span></div>
+          <div class="pb" data-pb="pb_wound"><b>Wondzorg</b><span>post-op/ulcus</span></div>
+          <div class="pb" data-pb="pb_frailty"><b>Kwetsbaarheid</b><span>ADL/Katz/fragiel</span></div>
+          <div class="pb" data-pb="pb_poly"><b>Polyfarmacie</b><span>medicatiebeheer</span></div>
+          <div class="pb" data-pb="pb_cog"><b>Cognitie</b><span>dementie/delier</span></div>
+          <div class="pb" data-pb="pb_falls"><b>Valpreventie</b><span>vallen/mobiliteit</span></div>
+          <div class="pb" data-pb="pb_resp"><b>Respiratoir</b><span>pneumonie/COPD</span></div>
+          <div class="pb" data-pb="pb_pain"><b>Pijn</b><span>analgesie</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZORGBUNDELS + PUBLICATIE -->
+  <section class="panel reveal" id="bundels">
+    <div class="head">
+      <div class="title">
+        <span class="swatch green"></span><span>Zorgbundels → publicatie</span><span class="badge">plan</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch green"></span> bundel voorgesteld</span>
+        <span class="leg"><span class="swatch blue"></span> evidence (PHR)</span>
+        <span class="leg"><span class="swatch purple"></span> context (vragenlijst)</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="block" style="padding:12px">
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">
+          <span>📦 Bundelvoorstellen (op basis van probleemgebieden)</span>
+          <span class="mini"><span class="tag">selecteer/activeer</span><span class="tag">publiceer</span></span>
+        </h3>
+
+        <div class="bundleGrid" id="bundleGrid">
+          <div class="bundle" data-b="b_cardio">
+            <b>Hartfalen Bundel</b>
+            <ul>
+              <li>Daggewicht + alarmsymptomen</li>
+              <li>Medicatiecheck</li>
+              <li>Thuisvpk + huisarts follow-up</li>
+            </ul>
+          </div>
+          <div class="bundle" data-b="b_wound">
+            <b>Post-Operatief / Wond Bundel</b>
+            <ul>
+              <li>Wondzorg protocol</li>
+              <li>Pijnschema + alarmsymptomen</li>
+              <li>Kine/mobilisatie</li>
+            </ul>
+          </div>
+          <div class="bundle" data-b="b_frailty">
+            <b>Kwetsbare Oudere Bundel</b>
+            <ul>
+              <li>ADL ondersteuning</li>
+              <li>Valpreventie</li>
+              <li>Mantelzorg coördinatie</li>
+            </ul>
+          </div>
+          <div class="bundle" data-b="b_poly">
+            <b>Polyfarmacie Bundel</b>
+            <ul>
+              <li>Medicatieschema + reconciliatie</li>
+              <li>Innamebegeleiding</li>
+              <li>Educatie + opvolgcontact</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex" style="margin-top:12px">
+          <button class="btn" id="suggestBundles">Stel bundels voor</button>
+          <button class="btn" id="publish">Publiceer zorgbundels</button>
+          <button class="btn" id="clearBundles">Clear</button>
+          <span class="kbd">Publicatie toont output hieronder</span>
+        </div>
+
+        <div class="publishBox" id="publishBox">
+          <h4>✅ Publicatie-output (demo)</h4>
+          <div class="row">
+            <div class="outCard">
+              <b>Zorgplan (samenvatting)</b>
+              <p id="planText">—</p>
+            </div>
+            <div class="outCard">
+              <b>Acties / uitvoering</b>
+              <p id="execText">—</p>
+            </div>
+          </div>
+          <p class="smallNote" style="margin:10px 0 0">
+            In de echte flow kan dit naar: (1) Flexizorg matching, (2) Nurseline opvolging, (3) patiënt/mantelzorger overzicht.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY / BEDDENHUIS -->
+  <section class="panel reveal">
+    <div class="head">
+      <div class="title">
+        <span class="swatch amber"></span><span>Beddenhuis-why</span><span class="badge">impact</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch green"></span> minder niet-medische ligdagen</span>
+        <span class="leg"><span class="swatch blue"></span> voorspelbare doorstroom</span>
+      </div>
+    </div>
+    <div class="section grid2">
+      <div class="block">
+        <h3><span>🏥 Waarom ziekenhuizen dit willen</span><span class="mini"><span class="tag">flow</span><span class="tag">LOS</span></span></h3>
+        <div class="nodes">
+          <div class="node" data-key="why1">
+            <div class="icon amber">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l9 18H3L12 2z" stroke="white" stroke-width="2"/><path d="M12 10v4" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M12 17h.01" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+            </div>
+            <div><b>Minder niet-medische ligdagen</b><p>THUIS-stoppers vroeg oplossen → ontslag zodra medisch kan.</p></div>
+          </div>
+          <div class="node" data-key="why2">
+            <div class="icon green">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6 12l4 4 8-9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div><b>Meer weekendontslag</b><p>Planning vooraf rond (hulpmiddelen + capaciteit) → minder “maandag-effect”.</p></div>
+          </div>
+          <div class="node" data-key="why3">
+            <div class="icon blue">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M12 4v16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div><b>Minder spoedopstopping & OK-uitstel</b><p>Snellere bedvrijgave → stabielere planning.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3><span>🧩 Waarom Zorgstart dit kan</span><span class="mini"><span class="tag">dual flow</span><span class="tag">lexicon</span></span></h3>
+        <div class="nodes">
+          <div class="node" data-key="why4">
+            <div class="icon blue">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l3 3v15H7V3z" stroke="white" stroke-width="2"/><path d="M14 3v4h4" stroke="white" stroke-width="2"/></svg>
+            </div>
+            <div><b>PHR geeft klinische waarheid</b><p>Gestructureerde data uit documenten + historiek.</p></div>
+          </div>
+          <div class="node" data-key="why5">
+            <div class="icon purple">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="white" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h7" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div><b>Vragenlijst geeft uitvoerbaarheid</b><p>Thuiscontext + mantelzorg + hulpmiddelen + veiligheid.</p></div>
+          </div>
+          <div class="node" data-key="why6">
+            <div class="icon green">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="white" stroke-width="2"/><path d="M4 12h3M17 12h3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div><b>Lexicons maken bundels schaalbaar</b><p>Probleemgebieden → zorgbundels → publiceerbaar plan.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="reveal">
+    <div>© Zorgstart demo-schema — single-file HTML</div>
+    <div><span class="kbd">Tip</span> Gebruik “Simuleer demo” om publicatie-output te zien.</div>
+  </footer>
+</div>
+
+<script>
+/* ---------- Reveal ---------- */
+const revealEls = Array.from(document.querySelectorAll('.reveal'));
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+/* ---------- Focus mode + Reset ---------- */
+const toggleFocusBtn = document.getElementById('toggleFocus');
+const resetBtn = document.getElementById('reset');
+toggleFocusBtn.addEventListener('click', () => document.body.classList.toggle('focus'));
+
+function clearActive(){
+  document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
+}
+function clearState(){
+  clearActive();
+  // reset docs
+  document.querySelectorAll('.doc').forEach(d => d.classList.remove('on'));
+  // reset lights: med/hosp ok, home not ok
+  setLight('med', true);
+  setLight('hosp', true);
+  setLight('home', false);
+  updateStopStatus();
+  // reset lex
+  document.querySelectorAll('.lex').forEach(l => l.classList.remove('on'));
+  document.querySelectorAll('.pb').forEach(p => p.classList.remove('on'));
+  // reset bundles
+  document.querySelectorAll('.bundle').forEach(b => b.classList.remove('on'));
+  // hide publish output
+  document.getElementById('publishBox').classList.remove('show');
+  document.getElementById('planText').textContent = '—';
+  document.getElementById('execText').textContent = '—';
+  // collapse details
+  document.querySelectorAll('.details').forEach(d => d.classList.remove('show'));
+}
+resetBtn.addEventListener('click', clearState);
+
+/* ---------- Details toggles ---------- */
+document.querySelectorAll('[data-toggle]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.getAttribute('data-toggle');
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.toggle('show');
+    el.classList.add('pulse');
+    setTimeout(()=>el.classList.remove('pulse'), 900);
+  });
+});
+
+/* ---------- Node click highlight ---------- */
+document.querySelectorAll('.node, .doc, .lex, .pb, .bundle').forEach(el => {
+  el.addEventListener('click', () => {
+    el.classList.add('active');
+    el.classList.add('pulse');
+    setTimeout(()=>el.classList.remove('pulse'), 900);
+  });
+});
+
+/* ---------- Timeline documents ---------- */
+const daySlider = document.getElementById('day');
+const dayLabel = document.getElementById('dayLabel');
+
+const docRules = {
+  opname: d => d >= 0,
+  problem: d => d >= 1,
+  nursing: d => d >= 2,
+  paramed: d => d >= 3,
+  soc: d => d >= 2,
+  discharge: d => d >= 12,
+  meds: d => d >= 12,
+  rx: d => d >= 12,
+  appts: d => d >= 12
+};
+
+function applyDocs(day){
+  document.querySelectorAll('.doc').forEach(doc => {
+    const key = doc.getAttribute('data-doc');
+    const on = docRules[key] ? docRules[key](day) : false;
+    doc.classList.toggle('on', !!on);
+  });
+}
+
+daySlider.addEventListener('input', () => {
+  const d = Number(daySlider.value);
+  dayLabel.textContent = `Dag ${d}`;
+  applyDocs(d);
+});
+
+/* ---------- Stoplights ---------- */
+const stopStatus = document.getElementById('stopStatus');
+
+function setLight(which, ok){
+  const el = document.querySelector(`.light[data-light="${which}"]`);
+  if(!el) return;
+  el.classList.toggle('ok', !!ok);
+}
+function isLightOk(which){
+  const el = document.querySelector(`.light[data-light="${which}"]`);
+  return el ? el.classList.contains('ok') : false;
+}
+function updateStopStatus(){
+  const med = isLightOk('med') ? 'groen' : 'geel';
+  const hosp = isLightOk('hosp') ? 'groen' : 'geel';
+  const home = isLightOk('home') ? 'groen' : 'geel';
+  stopStatus.textContent = `Status: MED=${med} · HOSP=${hosp} · THUIS=${home}`;
+}
+
+document.querySelectorAll('.light').forEach(l => {
+  l.addEventListener('click', () => {
+    l.classList.toggle('ok');
+    updateStopStatus();
+  });
+});
+
+/* ---------- Lexicon + Probleemgebieden mapping ---------- */
+const lexToPb = {
+  cardio: ['pb_cardio'],
+  wound: ['pb_wound', 'pb_pain'],
+  frailty: ['pb_frailty', 'pb_falls'],
+  polypharm: ['pb_poly'],
+  cog: ['pb_cog', 'pb_frailty'],
+  falls: ['pb_falls', 'pb_frailty'],
+  resp: ['pb_resp'],
+  pain: ['pb_pain']
+};
+
+function clearPb(){
+  document.querySelectorAll('.pb').forEach(p => p.classList.remove('on'));
+}
+function setPb(pbKey, on){
+  const el = document.querySelector(`.pb[data-pb="${pbKey}"]`);
+  if(el) el.classList.toggle('on', !!on);
+}
+
+document.querySelectorAll('.lex').forEach(l => {
+  l.addEventListener('click', () => {
+    l.classList.toggle('on');
+  });
+});
+
+document.getElementById('clearLex').addEventListener('click', () => {
+  document.querySelectorAll('.lex').forEach(l => l.classList.remove('on'));
+  clearPb();
+});
+
+document.getElementById('runLex').addEventListener('click', () => {
+  clearPb();
+  document.querySelectorAll('.lex.on').forEach(l => {
+    const k = l.getAttribute('data-lex');
+    (lexToPb[k] || []).forEach(pb => setPb(pb, true));
+  });
+  // Also infer frailty/falls if THUIS is not ok (context risk)
+  if(!isLightOk('home')){
+    setPb('pb_frailty', true);
+    setPb('pb_falls', true);
+  }
+});
+
+/* ---------- Bundles from probleemgebieden ---------- */
+const pbToBundles = {
+  pb_cardio: ['b_cardio'],
+  pb_wound: ['b_wound'],
+  pb_frailty: ['b_frailty'],
+  pb_poly: ['b_poly'],
+  pb_cog: ['b_frailty'],
+  pb_falls: ['b_frailty'],
+  pb_resp: ['b_cardio'], // demo: respiratory often coexists with frailty; keep simple
+  pb_pain: ['b_wound']
+};
+
+function clearBundles(){
+  document.querySelectorAll('.bundle').forEach(b => b.classList.remove('on'));
+}
+
+document.getElementById('clearBundles').addEventListener('click', () => {
+  clearBundles();
+  document.getElementById('publishBox').classList.remove('show');
+});
+
+document.getElementById('suggestBundles').addEventListener('click', () => {
+  clearBundles();
+  const pbsOn = Array.from(document.querySelectorAll('.pb.on')).map(p => p.getAttribute('data-pb'));
+  const bundleSet = new Set();
+  pbsOn.forEach(pb => (pbToBundles[pb] || []).forEach(b => bundleSet.add(b)));
+  bundleSet.forEach(bk => {
+    const el = document.querySelector(`.bundle[data-b="${bk}"]`);
+    if(el) el.classList.add('on');
+  });
+});
+
+/* ---------- Publicatie output ---------- */
+function buildPlanText(){
+  const bundles = Array.from(document.querySelectorAll('.bundle.on')).map(b => b.querySelector('b').textContent.trim());
+  if(bundles.length === 0) return 'Geen bundels geselecteerd. Run lexicons → stel bundels voor → publiceer.';
+  const stop = `Keten: MED=${isLightOk('med')?'groen':'geel'}, HOSP=${isLightOk('hosp')?'groen':'geel'}, THUIS=${isLightOk('home')?'groen':'geel'}.`;
+  return `Geselecteerde zorgbundels: ${bundles.join(' · ')}. ${stop} Versie: voorlopig (v1) → finaliseren met ontslagbrief/medicatie/voorschriften.`;
+}
+
+function buildExecText(){
+  const needsHome = !isLightOk('home');
+  const base = [
+    '1) Reserveer capaciteit (thuisvpk/kine) met startdatum',
+    '2) Check hulpmiddelen/levering + mantelzorg-afspraken',
+    '3) Maak patiënt/mantelzorger overzicht + escalatiecontact'
+  ];
+  if(needsHome) base.unshift('⚠ THUIS geel: eerst thuisorganisatie oplossen (mantelzorg/hulpmiddelen/veiligheid).');
+  return base.join('  ');
+}
+
+document.getElementById('publish').addEventListener('click', () => {
+  const box = document.getElementById('publishBox');
+  document.getElementById('planText').textContent = buildPlanText();
+  document.getElementById('execText').textContent = buildExecText();
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+/* ---------- Simulations (buttons) ---------- */
+const simState = {
+  uploaded:false,
+  scraped:false,
+  questionnaire:false
+};
+
+function simUpload(){
+  simState.uploaded = true;
+  // day to 1, docs on
+  daySlider.value = 1;
+  dayLabel.textContent = 'Dag 1';
+  applyDocs(1);
+  // highlight flow1 first node
+  pulseKey('f1a');
+}
+function simScrape(){
+  simState.scraped = true;
+  // suggest lexicons from "medical"
+  // (demo) turn on polypharm + wound
+  setLexOn('polypharm', true);
+  setLexOn('wound', true);
+  pulseKey('f1b');
+  // show details
+  showDetails('d_f1');
+}
+function simQuestionnaire(){
+  simState.questionnaire = true;
+  // make THUIS yellow (not ok) to show stopper
+  setLight('home', false);
+  updateStopStatus();
+  pulseKey('f2a');
+  showDetails('d_f2');
+}
+function setLexOn(lex, on){
+  const el = document.querySelector(`.lex[data-lex="${lex}"]`);
+  if(el) el.classList.toggle('on', !!on);
+}
+function pulseKey(key){
+  const el = document.querySelector(`.node[data-key="${key}"]`);
+  if(!el) return;
+  el.classList.add('active');
+  el.classList.add('pulse');
+  setTimeout(()=>el.classList.remove('pulse'), 900);
+}
+function showDetails(id){
+  const el = document.getElementById(id);
+  if(el) el.classList.add('show');
+}
+
+document.querySelectorAll('[data-sim]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.getAttribute('data-sim');
+    if(k === 'upload') simUpload();
+    if(k === 'scrape') simScrape();
+    if(k === 'questionnaire') simQuestionnaire();
+  });
+});
+
+document.getElementById('simulateAll').addEventListener('click', () => {
+  // step-by-step
+  clearState();
+  setTimeout(simUpload, 150);
+  setTimeout(simScrape, 450);
+  setTimeout(simQuestionnaire, 750);
+  setTimeout(() => {
+    // run lex, propose bundles, publish
+    document.getElementById('runLex').click();
+    document.getElementById('suggestBundles').click();
+    document.getElementById('publish').click();
+  }, 1050);
+});
+
+/* ---------- init ---------- */
+function init(){
+  applyDocs(Number(daySlider.value));
+  updateStopStatus();
+}
+init();
+</script>
+</body>
+</html>
