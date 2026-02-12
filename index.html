@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Zorgstart — Dual Flow + Lexicon + Bundels (Full)</title>
+<title>Zorgstart — Dual Flow + 16 Probleemgebieden + Bundels + Zorgverleners + Matching</title>
 
 <style>
 :root{
@@ -51,13 +51,12 @@ body{
   opacity:.55;
 }
 
-.wrap{max-width:1220px;margin:0 auto;padding:30px 18px 90px;}
+.wrap{max-width:1240px;margin:0 auto;padding:30px 18px 90px;}
 
 header{
   display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;
   margin-bottom:18px;
 }
-
 .pill{
   display:inline-flex;gap:10px;align-items:center;
   padding:8px 12px;border:1px solid var(--stroke);
@@ -80,7 +79,7 @@ h1{
   margin:0;
   color:var(--muted);
   line-height:1.45;
-  max-width:920px;
+  max-width:980px;
   font-size:15.5px;
 }
 
@@ -100,6 +99,11 @@ h1{
 }
 .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08);border-color:rgba(93,214,255,.35)}
 .btn:active{transform:translateY(0) scale(.99)}
+
+.btn.primary{
+  border-color: rgba(93,214,255,.45);
+  background: rgba(93,214,255,.10);
+}
 
 .kbd{
   font-family:var(--mono);
@@ -175,7 +179,6 @@ h1{
     radial-gradient(closest-side at 75% 35%, rgba(124,92,255,.12), transparent 60%);
   opacity:.9;pointer-events:none;
 }
-
 .block h3{
   margin:0 0 10px;
   font-size:16px;
@@ -198,7 +201,6 @@ h1{
   transition:transform .18s ease,border-color .18s ease,background .18s ease,opacity .18s ease;
 }
 .node:hover{transform:translateY(-2px);border-color:rgba(93,214,255,.38);background:rgba(255,255,255,.085)}
-
 .icon{
   width:34px;height:34px;border-radius:12px;
   display:grid;place-items:center;
@@ -217,14 +219,11 @@ h1{
 .node p{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
 .node small{display:block;margin-top:6px;color:rgba(255,255,255,.70);font-family:var(--mono);font-size:11.5px;opacity:.9}
 
-.arrow{
-  height:18px;display:grid;place-items:center;opacity:.75;
-}
+.arrow{height:18px;display:grid;place-items:center;opacity:.75}
 .arrow svg{width:16px;height:16px;animation:bob 1.6s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 
 hr.sep{border:0;border-top:1px dashed rgba(255,255,255,.16);margin:12px 0}
-
 .flex{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
 .details{
@@ -248,7 +247,6 @@ hr.sep{border:0;border-top:1px dashed rgba(255,255,255,.16);margin:12px 0}
 /* Timeline */
 .timeline{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:1020px){.timeline{grid-template-columns:1.2fr .8fr}}
-
 .sliderRow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 input[type="range"]{width:min(540px,100%)}
 .timeLabel{
@@ -312,23 +310,22 @@ input[type="range"]{width:min(540px,100%)}
 }
 .lex:hover{transform:translateY(-1px);border-color:rgba(93,214,255,.35);background:rgba(255,255,255,.08);opacity:1}
 .lex.on{opacity:1;border-color:rgba(93,214,255,.45);background:rgba(93,214,255,.10)}
-.lex.active{opacity:1;border-color:rgba(255,209,102,.55);background:rgba(255,209,102,.10)}
 
-/* Probleemgebieden */
+/* Probleemgebieden (16) */
 .pbGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media(min-width:1020px){.pbGrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .pb{
   border-radius:14px;border:1px solid rgba(255,255,255,.11);
   background:rgba(124,92,255,.08);
   padding:10px;
-  opacity:.50;
+  opacity:.45;
   transition:opacity .18s ease,transform .18s ease,border-color .18s ease;
 }
 .pb.on{opacity:1;transform:translateY(-1px);border-color:rgba(124,92,255,.40)}
 .pb b{display:block;font-size:13px;margin-bottom:5px}
 .pb span{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.76)}
 
-/* Bundles */
+/* Bundles (16) */
 .bundleGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media(min-width:1020px){.bundleGrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .bundle{
@@ -336,7 +333,7 @@ input[type="range"]{width:min(540px,100%)}
   background:rgba(72,213,151,.08);
   padding:12px;
   box-shadow:0 10px 22px rgba(0,0,0,.18);
-  opacity:.45;
+  opacity:.38;
   transition:opacity .18s ease,transform .18s ease,border-color .18s ease;
   cursor:pointer;
 }
@@ -344,6 +341,33 @@ input[type="range"]{width:min(540px,100%)}
 .bundle b{display:block;margin-bottom:6px}
 .bundle ul{margin:0;padding-left:16px;color:var(--muted);font-size:12.5px}
 .bundle li{margin:4px 0}
+
+/* Providers layer */
+.provGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:1020px){.provGrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.prov{
+  border-radius:16px;border:1px solid rgba(255,255,255,.11);
+  background:rgba(93,214,255,.06);
+  padding:12px;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+  opacity:.40;
+  transition:opacity .18s ease,transform .18s ease,border-color .18s ease;
+}
+.prov.on{opacity:1;transform:translateY(-1px);border-color:rgba(93,214,255,.40)}
+.prov b{display:block;margin-bottom:6px}
+.prov .meta{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.76)}
+.prov .reason{margin-top:8px;color:var(--muted);font-size:12.5px;line-height:1.35}
+.prov .status{
+  display:inline-flex;align-items:center;gap:8px;margin-top:10px;
+  font-family:var(--mono);font-size:11.5px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.12);
+  padding:4px 8px;border-radius:999px;color:rgba(255,255,255,.82);
+}
+.prov .pilldot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.25)}
+.prov.matching .pilldot{background:rgba(255,209,102,.75)}
+.prov.matched .pilldot{background:rgba(72,213,151,.75)}
+.prov.blocked .pilldot{background:rgba(255,107,107,.75)}
 
 .publishBox{
   margin-top:12px;
@@ -355,9 +379,7 @@ input[type="range"]{width:min(540px,100%)}
 }
 .publishBox.show{display:block}
 .publishBox h4{margin:0 0 8px;font-size:14px}
-.publishBox .row{
-  display:grid;grid-template-columns:1fr;gap:10px;
-}
+.publishBox .row{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:1020px){.publishBox .row{grid-template-columns:1fr 1fr}}
 .outCard{
   border-radius:14px;border:1px solid rgba(255,255,255,.11);
@@ -366,27 +388,20 @@ input[type="range"]{width:min(540px,100%)}
 }
 .outCard b{display:block;margin-bottom:6px}
 .outCard p{margin:0;color:var(--muted);font-size:12.8px;line-height:1.35}
-
 .smallNote{color:var(--muted);font-size:12.5px;line-height:1.35}
 
-/* Focus mode */
-.focus .node, .focus .doc, .focus .lex, .focus .pb, .focus .bundle{opacity:.30 !important}
+.focus .node, .focus .doc, .focus .lex, .focus .pb, .focus .bundle, .focus .prov{opacity:.28 !important}
 .focus .active{opacity:1 !important}
 
-/* reveal */
 .reveal{opacity:0;transform:translateY(10px);transition:opacity .5s ease, transform .5s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
 
-footer{
-  margin-top:18px;
-  color:var(--muted);
-  font-size:12px;
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  opacity:.9;
+a.link{
+  color: rgba(93,214,255,.95);
+  text-decoration:none;
+  border-bottom:1px dashed rgba(93,214,255,.45);
 }
+a.link:hover{opacity:.9}
 </style>
 </head>
 
@@ -395,18 +410,19 @@ footer{
 
 <div class="wrap">
   <header class="reveal">
-    <div style="max-width:930px">
-      <div class="pill"><span class="dot"></span><span><b>Zorgstart</b> — Dual Flow + Lexicon + Bundels</span><span class="kbd">full schema</span></div>
-      <h1>Van documenten & context naar probleemgebieden en zorgbundels</h1>
+    <div style="max-width:980px">
+      <div class="pill"><span class="dot"></span><span><b>Zorgstart</b> — Dual Flow → 16 Probleemgebieden → 16 Bundels → Zorgverleners → Matching → Zorgplan</span><span class="kbd">full</span></div>
+      <h1>Alles visueel: PHR + vragenlijst + lexicons + bundels + zorgverleners + matching</h1>
       <p class="sub">
         1) Documenten worden gescrapet in <b>OnePatient (Bingli)</b> → PHR/gestructureerde data.
         2) Context komt via <b>slimme vragenlijst</b>.
-        3) <b>Lexicons</b> detecteren probleemgebieden.
-        4) Zorgstart stelt <b>zorgbundels</b> voor en publiceert een coherent plan.
+        3) <b>Lexicons</b> detecteren <b>16 probleemgebieden</b>.
+        4) Zorgstart stelt <b>16 zorgbundels</b> voor incl. <b>medicatieschema</b>.
+        5) Bundels mappen naar <b>aangewezen zorgverleners</b> en verwijzen naar het <b>matchmakingsplatform</b>.
       </p>
     </div>
     <div class="actions">
-      <button class="btn" id="simulateAll">Simuleer demo</button>
+      <button class="btn primary" id="simulateAll">Simuleer demo</button>
       <button class="btn" id="toggleFocus">Focus mode</button>
       <button class="btn" id="reset">Reset</button>
       <span class="kbd">klik op elementen</span>
@@ -434,7 +450,7 @@ footer{
           <span class="kbd">sleep</span>
         </div>
         <p class="smallNote" style="margin:8px 0 0">
-          Pre-planning start op dag 0–1 met minimum-info; finalisatie gebeurt in laatste 48u (ontsagbrief+medicatie+voorschriften).
+          Pre-planning start op dag 0–1; finalisatie in laatste 48u met ontslagbrief + finale medicatie + voorschriften.
         </p>
       </div>
 
@@ -444,7 +460,7 @@ footer{
           <div class="doc" data-doc="opname"><b>Opname-/spoedverslag</b><span>dag 0</span></div>
           <div class="doc" data-doc="problem"><b>Probleemlijst / EPD</b><span>dag 0–1</span></div>
           <div class="doc" data-doc="nursing"><b>Verpleegkundige inschatting</b><span>dag 1–2</span></div>
-          <div class="doc" data-doc="paramed"><b>Kine/Ergo verslag</b><span>dag 2–3</span></div>
+          <div class="doc" data-doc="paramed"><b>Kine/Ergo/Logopedie</b><span>dag 2–3</span></div>
           <div class="doc" data-doc="soc"><b>Sociaal verslag / context</b><span>dag 1–3</span></div>
           <div class="doc" data-doc="discharge"><b>Definitieve ontslagbrief</b><span>laatste 48u</span></div>
           <div class="doc" data-doc="meds"><b>Finale medicatie</b><span>laatste 48u</span></div>
@@ -522,8 +538,8 @@ footer{
             <h4>Wat haalt Zorgstart hieruit?</h4>
             <ul>
               <li>Acute episode: diagnose/ingreep/complicaties/follow-up</li>
-              <li>Chronische flags: comorbiditeit, polyfarmacie</li>
-              <li>Wijzigingen: medicatieverschillen, nieuwe acties</li>
+              <li>Chronische flags: comorbiditeit, polyfarmacie, kwetsbaarheid</li>
+              <li>Wijzigingen: medicatieverschillen, nieuwe acties, alarmsymptomen</li>
             </ul>
           </div>
 
@@ -575,7 +591,7 @@ footer{
               <li>Woont u alleen? Is er dagelijks iemand aanwezig?</li>
               <li>Trappen tussen slaapkamer/badkamer/leefruimte?</li>
               <li>Wie beheert medicatie en afspraken?</li>
-              <li>Hulpmiddelen nodig (rollator/bed/toilet)?</li>
+              <li>Hulpmiddelen nodig (bed/rollator/toilet)?</li>
               <li>Recente vallen? cognitieve verwarring?</li>
             </ul>
           </div>
@@ -606,7 +622,7 @@ footer{
   <section class="panel reveal" id="lex">
     <div class="head">
       <div class="title">
-        <span class="swatch purple"></span><span>Lexicons → probleemgebieden</span><span class="badge">matchlaag</span>
+        <span class="swatch purple"></span><span>Lexicons → 16 probleemgebieden</span><span class="badge">matchlaag</span>
       </div>
       <div class="legend">
         <span class="leg"><span class="swatch purple"></span> lexicon actief</span>
@@ -617,191 +633,203 @@ footer{
     <div class="section">
       <div class="block" style="padding:12px">
         <h3 style="margin:0 0 10px;position:relative;z-index:1">
-          <span>🧠 Lexicon selectie</span>
-          <span class="mini"><span class="tag">klik</span><span class="tag">of gebruik “Run”</span></span>
+          <span>🧠 Lexicon selectie (16)</span>
+          <span class="mini"><span class="tag">klik</span><span class="tag">of “Run”</span></span>
         </h3>
 
         <div class="lexRow" id="lexRow">
           <div class="lex" data-lex="cardio">CARDIO</div>
-          <div class="lex" data-lex="wound">WOUND/POST-OP</div>
-          <div class="lex" data-lex="frailty">FRAILTY</div>
-          <div class="lex" data-lex="polypharm">POLYFARMACIE</div>
-          <div class="lex" data-lex="cog">COGNITIE</div>
-          <div class="lex" data-lex="falls">VALRISICO</div>
           <div class="lex" data-lex="resp">RESPIRATOIR</div>
+          <div class="lex" data-lex="wound">WOND/POST-OP</div>
           <div class="lex" data-lex="pain">PIJN</div>
+
+          <div class="lex" data-lex="frailty">KWETSBAARHEID</div>
+          <div class="lex" data-lex="falls">VALRISICO</div>
+          <div class="lex" data-lex="cog">COGNITIE</div>
+          <div class="lex" data-lex="mental">MENTALE GEZONDHEID</div>
+
+          <div class="lex" data-lex="nutrition">VOEDING/SLIK</div>
+          <div class="lex" data-lex="mobility">MOBILITEIT/REVALIDATIE</div>
+          <div class="lex" data-lex="woundsup">DRUKLETSELS</div>
+          <div class="lex" data-lex="infection">INFECTIE/AB</div>
+
+          <div class="lex" data-lex="diabetes">DIABETES</div>
+          <div class="lex" data-lex="renal">NIERFUNCTIE</div>
+          <div class="lex" data-lex="meds">MEDICATIESCHEMA</div>
+          <div class="lex" data-lex="social">SOCIAAL/ORGANISATIE</div>
         </div>
 
         <div class="flex" style="margin-top:12px">
-          <button class="btn" id="runLex">Run lexicons</button>
+          <button class="btn primary" id="runLex">Run lexicons</button>
           <button class="btn" id="clearLex">Clear</button>
           <span class="kbd" id="lexHint">Tip: simuleer eerst “scrape” + “vragenlijst” voor rijkere matches</span>
         </div>
 
         <hr class="sep"/>
 
-        <h3 style="margin:0 0 10px;position:relative;z-index:1">🎯 Probleemgebieden (output)</h3>
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">🎯 Probleemgebieden (16)</h3>
         <div class="pbGrid" id="pbGrid">
-          <div class="pb" data-pb="pb_cardio"><b>Cardio</b><span>cardio/hartfalen</span></div>
+          <div class="pb" data-pb="pb_cardio"><b>Cardio</b><span>hartfalen/ritme</span></div>
+          <div class="pb" data-pb="pb_resp"><b>Respiratoir</b><span>COPD/pneumonie</span></div>
           <div class="pb" data-pb="pb_wound"><b>Wondzorg</b><span>post-op/ulcus</span></div>
-          <div class="pb" data-pb="pb_frailty"><b>Kwetsbaarheid</b><span>ADL/Katz/fragiel</span></div>
-          <div class="pb" data-pb="pb_poly"><b>Polyfarmacie</b><span>medicatiebeheer</span></div>
-          <div class="pb" data-pb="pb_cog"><b>Cognitie</b><span>dementie/delier</span></div>
-          <div class="pb" data-pb="pb_falls"><b>Valpreventie</b><span>vallen/mobiliteit</span></div>
-          <div class="pb" data-pb="pb_resp"><b>Respiratoir</b><span>pneumonie/COPD</span></div>
           <div class="pb" data-pb="pb_pain"><b>Pijn</b><span>analgesie</span></div>
+
+          <div class="pb" data-pb="pb_frailty"><b>Kwetsbaarheid</b><span>ADL/Katz</span></div>
+          <div class="pb" data-pb="pb_falls"><b>Valpreventie</b><span>vallen/mobiliteit</span></div>
+          <div class="pb" data-pb="pb_cog"><b>Cognitie</b><span>dementie/delier</span></div>
+          <div class="pb" data-pb="pb_mental"><b>Mentaal</b><span>angst/depressie</span></div>
+
+          <div class="pb" data-pb="pb_nutrition"><b>Voeding/slik</b><span>malnutritie</span></div>
+          <div class="pb" data-pb="pb_mobility"><b>Mobiliteit</b><span>revalidatie</span></div>
+          <div class="pb" data-pb="pb_pressure"><b>Drukletsels</b><span>preventie</span></div>
+          <div class="pb" data-pb="pb_infection"><b>Infectie/AB</b><span>OPAT/AB</span></div>
+
+          <div class="pb" data-pb="pb_diabetes"><b>Diabetes</b><span>glycemie</span></div>
+          <div class="pb" data-pb="pb_renal"><b>Nierfunctie</b><span>monitoring</span></div>
+          <div class="pb" data-pb="pb_meds"><b>Medicatieschema</b><span>reconciliatie</span></div>
+          <div class="pb" data-pb="pb_social"><b>Sociaal/organisatie</b><span>mantelzorg</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ZORGBUNDELS + PUBLICATIE -->
+  <!-- BUNDLES -->
   <section class="panel reveal" id="bundels">
     <div class="head">
       <div class="title">
-        <span class="swatch green"></span><span>Zorgbundels → publicatie</span><span class="badge">plan</span>
+        <span class="swatch green"></span><span>16 Zorgbundels</span><span class="badge">suggestie</span>
       </div>
       <div class="legend">
-        <span class="leg"><span class="swatch green"></span> bundel voorgesteld</span>
-        <span class="leg"><span class="swatch blue"></span> evidence (PHR)</span>
-        <span class="leg"><span class="swatch purple"></span> context (vragenlijst)</span>
+        <span class="leg"><span class="swatch green"></span> bundel actief</span>
+        <span class="leg"><span class="swatch purple"></span> probleemgebied</span>
+        <span class="leg"><span class="swatch blue"></span> PHR</span>
       </div>
     </div>
 
     <div class="section">
       <div class="block" style="padding:12px">
         <h3 style="margin:0 0 10px;position:relative;z-index:1">
-          <span>📦 Bundelvoorstellen (op basis van probleemgebieden)</span>
-          <span class="mini"><span class="tag">selecteer/activeer</span><span class="tag">publiceer</span></span>
+          <span>📦 Bundelvoorstellen (16)</span>
+          <span class="mini"><span class="tag">op basis van probleemgebieden</span></span>
         </h3>
 
         <div class="bundleGrid" id="bundleGrid">
-          <div class="bundle" data-b="b_cardio">
-            <b>Hartfalen Bundel</b>
-            <ul>
-              <li>Daggewicht + alarmsymptomen</li>
-              <li>Medicatiecheck</li>
-              <li>Thuisvpk + huisarts follow-up</li>
-            </ul>
-          </div>
-          <div class="bundle" data-b="b_wound">
-            <b>Post-Operatief / Wond Bundel</b>
-            <ul>
-              <li>Wondzorg protocol</li>
-              <li>Pijnschema + alarmsymptomen</li>
-              <li>Kine/mobilisatie</li>
-            </ul>
-          </div>
-          <div class="bundle" data-b="b_frailty">
-            <b>Kwetsbare Oudere Bundel</b>
-            <ul>
-              <li>ADL ondersteuning</li>
-              <li>Valpreventie</li>
-              <li>Mantelzorg coördinatie</li>
-            </ul>
-          </div>
-          <div class="bundle" data-b="b_poly">
-            <b>Polyfarmacie Bundel</b>
-            <ul>
-              <li>Medicatieschema + reconciliatie</li>
-              <li>Innamebegeleiding</li>
-              <li>Educatie + opvolgcontact</li>
-            </ul>
-          </div>
+          <div class="bundle" data-b="b_cardio"><b>Hartfalen/Cardio</b><ul><li>Daggewicht + alarmsymptomen</li><li>Vocht/diuretica opvolging</li><li>Huisarts + vpk follow-up</li></ul></div>
+          <div class="bundle" data-b="b_resp"><b>Respiratoir</b><ul><li>Inhalatie/zuurstof check</li><li>Alarmtekens & actieplan</li><li>Follow-up + kine</li></ul></div>
+          <div class="bundle" data-b="b_wound"><b>Wondzorg/Post-op</b><ul><li>Wondzorg protocol</li><li>Controle tekenen infectie</li><li>Materiaal & planning</li></ul></div>
+          <div class="bundle" data-b="b_pain"><b>Pijncontrole</b><ul><li>Schema + doorbraakpijn</li><li>Bijwerkingen monitoren</li><li>Escalatiecriteria</li></ul></div>
+
+          <div class="bundle" data-b="b_frailty"><b>Kwetsbare Oudere</b><ul><li>ADL ondersteuning</li><li>Dagstructuur/veiligheid</li><li>Mantelzorg afstemming</li></ul></div>
+          <div class="bundle" data-b="b_falls"><b>Valpreventie</b><ul><li>Risicoscreening thuis</li><li>Hulpmiddelen/trappen</li><li>Oefeningen + ergo</li></ul></div>
+          <div class="bundle" data-b="b_cog"><b>Cognitie</b><ul><li>Delier/dementie plan</li><li>Toezicht & veiligheid</li><li>Educatie mantelzorger</li></ul></div>
+          <div class="bundle" data-b="b_mental"><b>Mentaal Welzijn</b><ul><li>Screening angst/depressie</li><li>Ondersteuning/doorverwijzing</li><li>Follow-up contactmoment</li></ul></div>
+
+          <div class="bundle" data-b="b_nutrition"><b>Voeding/Slik</b><ul><li>Diëtetiek + plan</li><li>Gewicht/eiwitinname</li><li>Slikveiligheid (logopedie)</li></ul></div>
+          <div class="bundle" data-b="b_mobility"><b>Mobiliteit/Revalidatie</b><ul><li>Kine startdatum</li><li>Transfers/trapveiligheid</li><li>Doelen (week 1–2)</li></ul></div>
+          <div class="bundle" data-b="b_pressure"><b>Drukletselpreventie</b><ul><li>Huidinspectie</li><li>Anti-decubitus materiaal</li><li>Wisselligging</li></ul></div>
+          <div class="bundle" data-b="b_infection"><b>Infectie/Antibiotica</b><ul><li>AB schema/duur</li><li>Controle parameters</li><li>Escalatie bij koorts</li></ul></div>
+
+          <div class="bundle" data-b="b_diabetes"><b>Diabetes</b><ul><li>Glycemieplan</li><li>Insuline/medicatie check</li><li>Voeding + follow-up</li></ul></div>
+          <div class="bundle" data-b="b_renal"><b>Nierfunctie</b><ul><li>Lab/controle planning</li><li>Hydratatie advies</li><li>Medicatie-aanpassing alert</li></ul></div>
+          <div class="bundle" data-b="b_meds"><b>Medicatieschema</b><ul><li>Reconciliatie (voor/na)</li><li>Inname-overzicht (weekbox)</li><li>Interacties/duplicaten check</li></ul></div>
+          <div class="bundle" data-b="b_social"><b>Sociaal/Organisatie</b><ul><li>Mantelzorg afspraken</li><li>Hulpmiddelen & vervoer</li><li>Contactlijst + noodplan</li></ul></div>
         </div>
 
         <div class="flex" style="margin-top:12px">
-          <button class="btn" id="suggestBundles">Stel bundels voor</button>
-          <button class="btn" id="publish">Publiceer zorgbundels</button>
+          <button class="btn primary" id="suggestBundles">Stel bundels voor</button>
           <button class="btn" id="clearBundles">Clear</button>
-          <span class="kbd">Publicatie toont output hieronder</span>
+          <span class="kbd">Klik op bundels om manueel te togglen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVIDERS + MATCHING -->
+  <section class="panel reveal" id="providers">
+    <div class="head">
+      <div class="title">
+        <span class="swatch blue"></span><span>Zorgverleners & matching</span><span class="badge">tussenlaag</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch blue"></span> zorgverleners geselecteerd</span>
+        <span class="leg"><span class="swatch amber"></span> matching bezig</span>
+        <span class="leg"><span class="swatch green"></span> gematcht</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="block" style="padding:12px">
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">
+          <span>👩‍⚕️ Aangewezen zorgverleners (auto op basis van bundels)</span>
+          <span class="mini">
+            <span class="tag">Zorgstart → Flexizorg</span>
+            <span class="tag"><a class="link" href="https://example.com/matchmaking" target="_blank" rel="noopener">matchmakingsplatform</a></span>
+          </span>
+        </h3>
+
+        <div class="provGrid" id="provGrid">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="flex" style="margin-top:12px">
+          <button class="btn primary" id="buildProviders">Genereer zorgverleners</button>
+          <button class="btn" id="startMatching">Start matching (sim)</button>
+          <button class="btn" id="clearProviders">Clear</button>
+          <span class="kbd" id="matchHint">Matching verschijnt per rol (zoeken → gematcht)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIE -->
+  <section class="panel reveal" id="publishPanel">
+    <div class="head">
+      <div class="title">
+        <span class="swatch green"></span><span>Publicatie → Zorgplan</span><span class="badge">output</span>
+      </div>
+      <div class="legend">
+        <span class="leg"><span class="swatch purple"></span> probleemgebieden</span>
+        <span class="leg"><span class="swatch green"></span> bundels</span>
+        <span class="leg"><span class="swatch blue"></span> zorgverleners</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="block" style="padding:12px">
+        <h3 style="margin:0 0 10px;position:relative;z-index:1">
+          <span>✅ Publiceer (demo)</span>
+          <span class="mini"><span class="tag">v1 → v2 → definitief</span><span class="tag">medicatieschema inbegrepen</span></span>
+        </h3>
+
+        <div class="flex">
+          <button class="btn primary" id="publish">Publiceer zorgplan</button>
+          <button class="btn" id="hidePublish">Verberg output</button>
+          <span class="kbd">Publicatie toont plan + uitvoering + matching</span>
         </div>
 
         <div class="publishBox" id="publishBox">
-          <h4>✅ Publicatie-output (demo)</h4>
+          <h4>📄 Zorgplan-output (demo)</h4>
           <div class="row">
             <div class="outCard">
-              <b>Zorgplan (samenvatting)</b>
+              <b>Samenvatting</b>
               <p id="planText">—</p>
             </div>
             <div class="outCard">
-              <b>Acties / uitvoering</b>
+              <b>Uitvoering & zorgverleners</b>
               <p id="execText">—</p>
             </div>
           </div>
           <p class="smallNote" style="margin:10px 0 0">
-            In de echte flow kan dit naar: (1) Flexizorg matching, (2) Nurseline opvolging, (3) patiënt/mantelzorger overzicht.
+            Volgende stap: publicatie kan automatisch “jobs” aanmaken richting het matchmakingsplatform (Flexizorg) en opvolging via Nurseline.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WHY / BEDDENHUIS -->
-  <section class="panel reveal">
-    <div class="head">
-      <div class="title">
-        <span class="swatch amber"></span><span>Beddenhuis-why</span><span class="badge">impact</span>
-      </div>
-      <div class="legend">
-        <span class="leg"><span class="swatch green"></span> minder niet-medische ligdagen</span>
-        <span class="leg"><span class="swatch blue"></span> voorspelbare doorstroom</span>
-      </div>
-    </div>
-    <div class="section grid2">
-      <div class="block">
-        <h3><span>🏥 Waarom ziekenhuizen dit willen</span><span class="mini"><span class="tag">flow</span><span class="tag">LOS</span></span></h3>
-        <div class="nodes">
-          <div class="node" data-key="why1">
-            <div class="icon amber">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l9 18H3L12 2z" stroke="white" stroke-width="2"/><path d="M12 10v4" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M12 17h.01" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
-            </div>
-            <div><b>Minder niet-medische ligdagen</b><p>THUIS-stoppers vroeg oplossen → ontslag zodra medisch kan.</p></div>
-          </div>
-          <div class="node" data-key="why2">
-            <div class="icon green">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M6 12l4 4 8-9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div><b>Meer weekendontslag</b><p>Planning vooraf rond (hulpmiddelen + capaciteit) → minder “maandag-effect”.</p></div>
-          </div>
-          <div class="node" data-key="why3">
-            <div class="icon blue">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M12 4v16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div><b>Minder spoedopstopping & OK-uitstel</b><p>Snellere bedvrijgave → stabielere planning.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="block">
-        <h3><span>🧩 Waarom Zorgstart dit kan</span><span class="mini"><span class="tag">dual flow</span><span class="tag">lexicon</span></span></h3>
-        <div class="nodes">
-          <div class="node" data-key="why4">
-            <div class="icon blue">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l3 3v15H7V3z" stroke="white" stroke-width="2"/><path d="M14 3v4h4" stroke="white" stroke-width="2"/></svg>
-            </div>
-            <div><b>PHR geeft klinische waarheid</b><p>Gestructureerde data uit documenten + historiek.</p></div>
-          </div>
-          <div class="node" data-key="why5">
-            <div class="icon purple">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="white" stroke-width="2"/><path d="M7 8h10M7 12h10M7 16h7" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div><b>Vragenlijst geeft uitvoerbaarheid</b><p>Thuiscontext + mantelzorg + hulpmiddelen + veiligheid.</p></div>
-          </div>
-          <div class="node" data-key="why6">
-            <div class="icon green">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="white" stroke-width="2"/><path d="M4 12h3M17 12h3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div><b>Lexicons maken bundels schaalbaar</b><p>Probleemgebieden → zorgbundels → publiceerbaar plan.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="reveal">
-    <div>© Zorgstart demo-schema — single-file HTML</div>
-    <div><span class="kbd">Tip</span> Gebruik “Simuleer demo” om publicatie-output te zien.</div>
+  <footer class="reveal" style="margin-top:18px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;opacity:.9;">
+    <div>© Zorgstart demo-schema — 16 probleemgebieden + 16 bundels + zorgverleners + matching</div>
+    <div><span class="kbd">Tip</span> Klik op “Simuleer demo”</div>
   </footer>
 </div>
 
@@ -818,36 +846,34 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 revealEls.forEach(el => io.observe(el));
 
-/* ---------- Focus mode + Reset ---------- */
-const toggleFocusBtn = document.getElementById('toggleFocus');
-const resetBtn = document.getElementById('reset');
-toggleFocusBtn.addEventListener('click', () => document.body.classList.toggle('focus'));
+/* ---------- Focus + Reset ---------- */
+document.getElementById('toggleFocus').addEventListener('click', () => document.body.classList.toggle('focus'));
 
 function clearActive(){
   document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
 }
 function clearState(){
   clearActive();
-  // reset docs
   document.querySelectorAll('.doc').forEach(d => d.classList.remove('on'));
-  // reset lights: med/hosp ok, home not ok
   setLight('med', true);
   setLight('hosp', true);
   setLight('home', false);
   updateStopStatus();
-  // reset lex
+
   document.querySelectorAll('.lex').forEach(l => l.classList.remove('on'));
   document.querySelectorAll('.pb').forEach(p => p.classList.remove('on'));
-  // reset bundles
   document.querySelectorAll('.bundle').forEach(b => b.classList.remove('on'));
-  // hide publish output
+
+  providersState = {};
+  renderProviders([]);
+
   document.getElementById('publishBox').classList.remove('show');
   document.getElementById('planText').textContent = '—';
   document.getElementById('execText').textContent = '—';
-  // collapse details
+
   document.querySelectorAll('.details').forEach(d => d.classList.remove('show'));
 }
-resetBtn.addEventListener('click', clearState);
+document.getElementById('reset').addEventListener('click', clearState);
 
 /* ---------- Details toggles ---------- */
 document.querySelectorAll('[data-toggle]').forEach(btn => {
@@ -861,7 +887,7 @@ document.querySelectorAll('[data-toggle]').forEach(btn => {
   });
 });
 
-/* ---------- Node click highlight ---------- */
+/* ---------- Element click highlight ---------- */
 document.querySelectorAll('.node, .doc, .lex, .pb, .bundle').forEach(el => {
   el.addEventListener('click', () => {
     el.classList.add('active');
@@ -870,10 +896,9 @@ document.querySelectorAll('.node, .doc, .lex, .pb, .bundle').forEach(el => {
   });
 });
 
-/* ---------- Timeline documents ---------- */
+/* ---------- Timeline docs ---------- */
 const daySlider = document.getElementById('day');
 const dayLabel = document.getElementById('dayLabel');
-
 const docRules = {
   opname: d => d >= 0,
   problem: d => d >= 1,
@@ -885,7 +910,6 @@ const docRules = {
   rx: d => d >= 12,
   appts: d => d >= 12
 };
-
 function applyDocs(day){
   document.querySelectorAll('.doc').forEach(doc => {
     const key = doc.getAttribute('data-doc');
@@ -893,7 +917,6 @@ function applyDocs(day){
     doc.classList.toggle('on', !!on);
   });
 }
-
 daySlider.addEventListener('input', () => {
   const d = Number(daySlider.value);
   dayLabel.textContent = `Dag ${d}`;
@@ -902,7 +925,6 @@ daySlider.addEventListener('input', () => {
 
 /* ---------- Stoplights ---------- */
 const stopStatus = document.getElementById('stopStatus');
-
 function setLight(which, ok){
   const el = document.querySelector(`.light[data-light="${which}"]`);
   if(!el) return;
@@ -918,7 +940,6 @@ function updateStopStatus(){
   const home = isLightOk('home') ? 'groen' : 'geel';
   stopStatus.textContent = `Status: MED=${med} · HOSP=${hosp} · THUIS=${home}`;
 }
-
 document.querySelectorAll('.light').forEach(l => {
   l.addEventListener('click', () => {
     l.classList.toggle('ok');
@@ -926,143 +947,262 @@ document.querySelectorAll('.light').forEach(l => {
   });
 });
 
-/* ---------- Lexicon + Probleemgebieden mapping ---------- */
+/* ---------- Lexicon -> Probleemgebied mapping (16) ---------- */
 const lexToPb = {
   cardio: ['pb_cardio'],
-  wound: ['pb_wound', 'pb_pain'],
-  frailty: ['pb_frailty', 'pb_falls'],
-  polypharm: ['pb_poly'],
-  cog: ['pb_cog', 'pb_frailty'],
-  falls: ['pb_falls', 'pb_frailty'],
   resp: ['pb_resp'],
-  pain: ['pb_pain']
+  wound: ['pb_wound'],
+  pain: ['pb_pain'],
+  frailty: ['pb_frailty'],
+  falls: ['pb_falls'],
+  cog: ['pb_cog'],
+  mental: ['pb_mental'],
+  nutrition: ['pb_nutrition'],
+  mobility: ['pb_mobility'],
+  woundsup: ['pb_pressure'],
+  infection: ['pb_infection'],
+  diabetes: ['pb_diabetes'],
+  renal: ['pb_renal'],
+  meds: ['pb_meds'],
+  social: ['pb_social']
 };
 
-function clearPb(){
-  document.querySelectorAll('.pb').forEach(p => p.classList.remove('on'));
-}
+function clearPb(){ document.querySelectorAll('.pb').forEach(p => p.classList.remove('on')); }
 function setPb(pbKey, on){
   const el = document.querySelector(`.pb[data-pb="${pbKey}"]`);
   if(el) el.classList.toggle('on', !!on);
 }
-
 document.querySelectorAll('.lex').forEach(l => {
-  l.addEventListener('click', () => {
-    l.classList.toggle('on');
-  });
+  l.addEventListener('click', () => l.classList.toggle('on'));
 });
-
 document.getElementById('clearLex').addEventListener('click', () => {
   document.querySelectorAll('.lex').forEach(l => l.classList.remove('on'));
   clearPb();
 });
-
 document.getElementById('runLex').addEventListener('click', () => {
   clearPb();
   document.querySelectorAll('.lex.on').forEach(l => {
     const k = l.getAttribute('data-lex');
     (lexToPb[k] || []).forEach(pb => setPb(pb, true));
   });
-  // Also infer frailty/falls if THUIS is not ok (context risk)
+  // Context-infer: als THUIS niet groen -> sociaal + frailty + falls
   if(!isLightOk('home')){
+    setPb('pb_social', true);
     setPb('pb_frailty', true);
     setPb('pb_falls', true);
   }
+  // Als polyfarmacie/medicatie relevant: toon medicatieschema als extra waarheidslaag (demo)
+  const medsLexOn = document.querySelector('.lex[data-lex="meds"]').classList.contains('on');
+  const polyHint = document.querySelector('.lex[data-lex="renal"]').classList.contains('on') ||
+                   document.querySelector('.lex[data-lex="diabetes"]').classList.contains('on');
+  if(medsLexOn || polyHint){
+    setPb('pb_meds', true);
+  }
 });
 
-/* ---------- Bundles from probleemgebieden ---------- */
-const pbToBundles = {
-  pb_cardio: ['b_cardio'],
-  pb_wound: ['b_wound'],
-  pb_frailty: ['b_frailty'],
-  pb_poly: ['b_poly'],
-  pb_cog: ['b_frailty'],
-  pb_falls: ['b_frailty'],
-  pb_resp: ['b_cardio'], // demo: respiratory often coexists with frailty; keep simple
-  pb_pain: ['b_wound']
+/* ---------- Bundles suggestions (16) ---------- */
+const pbToBundle = {
+  pb_cardio: 'b_cardio',
+  pb_resp: 'b_resp',
+  pb_wound: 'b_wound',
+  pb_pain: 'b_pain',
+  pb_frailty: 'b_frailty',
+  pb_falls: 'b_falls',
+  pb_cog: 'b_cog',
+  pb_mental: 'b_mental',
+  pb_nutrition: 'b_nutrition',
+  pb_mobility: 'b_mobility',
+  pb_pressure: 'b_pressure',
+  pb_infection: 'b_infection',
+  pb_diabetes: 'b_diabetes',
+  pb_renal: 'b_renal',
+  pb_meds: 'b_meds',
+  pb_social: 'b_social'
 };
 
-function clearBundles(){
-  document.querySelectorAll('.bundle').forEach(b => b.classList.remove('on'));
+function clearBundles(){ document.querySelectorAll('.bundle').forEach(b => b.classList.remove('on')); }
+function setBundle(bKey, on){
+  const el = document.querySelector(`.bundle[data-b="${bKey}"]`);
+  if(el) el.classList.toggle('on', !!on);
 }
-
-document.getElementById('clearBundles').addEventListener('click', () => {
-  clearBundles();
-  document.getElementById('publishBox').classList.remove('show');
-});
-
 document.getElementById('suggestBundles').addEventListener('click', () => {
   clearBundles();
   const pbsOn = Array.from(document.querySelectorAll('.pb.on')).map(p => p.getAttribute('data-pb'));
-  const bundleSet = new Set();
-  pbsOn.forEach(pb => (pbToBundles[pb] || []).forEach(b => bundleSet.add(b)));
-  bundleSet.forEach(bk => {
-    const el = document.querySelector(`.bundle[data-b="${bk}"]`);
-    if(el) el.classList.add('on');
+  pbsOn.forEach(pb => setBundle(pbToBundle[pb], true));
+  // Medicatieschema bundel mee activeren als diabetes/renal/cardiac actief (demo)
+  const mustMeds = ['pb_diabetes','pb_renal','pb_cardio','pb_cog'].some(k => pbsOn.includes(k));
+  if(mustMeds) setBundle('b_meds', true);
+});
+document.getElementById('clearBundles').addEventListener('click', clearBundles);
+
+/* ---------- Providers layer (mapping bundles -> roles) ---------- */
+const roleCatalog = {
+  nurse:   {title:'Thuisverpleegkundige', meta:'Rol: VPK', reason:'Zorguitvoering + opvolging + educatie + signalering'},
+  physio:  {title:'Kinesitherapeut', meta:'Rol: Kine', reason:'Mobiliteit, ademhaling, revalidatie'},
+  ergo:    {title:'Ergotherapeut', meta:'Rol: Ergo', reason:'Valpreventie, hulpmiddelen, woningadvies'},
+  gp:      {title:'Huisarts', meta:'Rol: GP', reason:'Medische opvolging, medicatiebeslissingen, continuïteit'},
+  pharm:   {title:'Apotheker', meta:'Rol: Apotheek', reason:'Medicatieschema, reconciliatie, interacties, weekbox'},
+  diet:    {title:'Diëtist', meta:'Rol: Diëtetiek', reason:'Voeding, eiwit, diabetes-educatie'},
+  speech:  {title:'Logopedist', meta:'Rol: Logopedie', reason:'Slikveiligheid, communicatie'},
+  psych:   {title:'Psycholoog', meta:'Rol: Mentaal', reason:'Angst/depressie, coping, nazorg'},
+  social:  {title:'Maatschappelijk werker', meta:'Rol: Sociaal', reason:'Mantelzorg, voorzieningen, administratie'},
+  wound:   {title:'Wondzorgspecialist', meta:'Rol: Wondexpert', reason:'Complexe wonden, materiaal, protocol'},
+  aide:    {title:'Zorgkundige / gezinszorg', meta:'Rol: ADL', reason:'ADL-ondersteuning, dagstructuur'},
+  equip:   {title:'Hulpmiddelenleverancier', meta:'Rol: Materiaal', reason:'Levering bed/rolstoel/toilet/anti-decubitus'}
+};
+
+const bundleToRoles = {
+  b_cardio:   ['nurse','gp','pharm'],
+  b_resp:     ['physio','gp','nurse'],
+  b_wound:    ['wound','nurse','equip'],
+  b_pain:     ['gp','pharm','nurse'],
+  b_frailty:  ['aide','nurse','social'],
+  b_falls:    ['ergo','physio','equip'],
+  b_cog:      ['social','gp','nurse'],
+  b_mental:   ['psych','gp','social'],
+  b_nutrition:['diet','speech','gp'],
+  b_mobility: ['physio','ergo','equip'],
+  b_pressure: ['nurse','equip','aide'],
+  b_infection:['nurse','gp','pharm'],
+  b_diabetes: ['nurse','gp','diet','pharm'],
+  b_renal:    ['gp','pharm','nurse'],
+  b_meds:     ['pharm','gp','nurse'],
+  b_social:   ['social','equip','aide']
+};
+
+let providersState = {}; // roleKey -> {status: 'idle'|'matching'|'matched'|'blocked'}
+
+function unique(arr){ return Array.from(new Set(arr)); }
+
+function computeRolesFromBundles(){
+  const bundlesOn = Array.from(document.querySelectorAll('.bundle.on')).map(b => b.getAttribute('data-b'));
+  const roles = [];
+  bundlesOn.forEach(b => (bundleToRoles[b] || []).forEach(r => roles.push(r)));
+  return unique(roles);
+}
+
+function renderProviders(roleKeys){
+  const grid = document.getElementById('provGrid');
+  grid.innerHTML = '';
+  roleKeys.forEach(rk => {
+    const base = roleCatalog[rk] || {title:rk, meta:'', reason:''};
+    const st = providersState[rk]?.status || 'idle';
+    const statusLabel = st === 'idle' ? 'klaar voor matching'
+      : st === 'matching' ? 'matching…'
+      : st === 'matched' ? 'gematcht'
+      : 'geblokkeerd';
+
+    const div = document.createElement('div');
+    div.className = `prov ${st === 'matching' ? 'matching' : ''} ${st === 'matched' ? 'matched' : ''} ${st === 'blocked' ? 'blocked' : ''} on`;
+    div.innerHTML = `
+      <b>${base.title}</b>
+      <div class="meta">${base.meta}</div>
+      <div class="reason">${base.reason}</div>
+      <div class="status"><span class="pilldot"></span>${statusLabel}</div>
+    `;
+    grid.appendChild(div);
+  });
+
+  if(roleKeys.length === 0){
+    grid.innerHTML = `<div class="prov on"><b>Geen zorgverleners geselecteerd</b><div class="meta">Tip</div><div class="reason">Stel eerst bundels voor, daarna “Genereer zorgverleners”.</div><div class="status"><span class="pilldot"></span>idle</div></div>`;
+  }
+}
+
+document.getElementById('buildProviders').addEventListener('click', () => {
+  const roles = computeRolesFromBundles();
+  roles.forEach(r => providersState[r] = providersState[r] || {status:'idle'});
+  renderProviders(roles);
+});
+
+document.getElementById('clearProviders').addEventListener('click', () => {
+  providersState = {};
+  renderProviders([]);
+});
+
+document.getElementById('startMatching').addEventListener('click', () => {
+  const roles = computeRolesFromBundles();
+  if(roles.length === 0){ renderProviders([]); return; }
+
+  // set all to matching
+  roles.forEach(r => providersState[r] = {status:'matching'});
+  renderProviders(roles);
+
+  // resolve after short delays (demo)
+  roles.forEach((r, i) => {
+    setTimeout(() => {
+      // simple rule: if THUIS not ok, some roles may be blocked (demo)
+      const homeOk = isLightOk('home');
+      const blocked = (!homeOk && (r === 'equip' || r === 'aide')) ? true : false;
+      providersState[r] = {status: blocked ? 'blocked' : 'matched'};
+      renderProviders(roles);
+    }, 450 + i * 160);
   });
 });
 
-/* ---------- Publicatie output ---------- */
+/* ---------- Publish output ---------- */
+function listOn(selector, attr){
+  return Array.from(document.querySelectorAll(selector))
+    .filter(el => el.classList.contains('on'))
+    .map(el => el.getAttribute(attr));
+}
+function pbTitles(){
+  return Array.from(document.querySelectorAll('.pb.on')).map(pb => pb.querySelector('b').textContent.trim());
+}
+function bundleTitles(){
+  return Array.from(document.querySelectorAll('.bundle.on')).map(b => b.querySelector('b').textContent.trim());
+}
+
 function buildPlanText(){
-  const bundles = Array.from(document.querySelectorAll('.bundle.on')).map(b => b.querySelector('b').textContent.trim());
-  if(bundles.length === 0) return 'Geen bundels geselecteerd. Run lexicons → stel bundels voor → publiceer.';
+  const pbs = pbTitles();
+  const buns = bundleTitles();
   const stop = `Keten: MED=${isLightOk('med')?'groen':'geel'}, HOSP=${isLightOk('hosp')?'groen':'geel'}, THUIS=${isLightOk('home')?'groen':'geel'}.`;
-  return `Geselecteerde zorgbundels: ${bundles.join(' · ')}. ${stop} Versie: voorlopig (v1) → finaliseren met ontslagbrief/medicatie/voorschriften.`;
+
+  const medsIncluded = buns.some(x => x.toLowerCase().includes('medicatie'));
+  const medsLine = medsIncluded
+    ? 'Medicatie: reconciliatie + inname-overzicht + apotheek/GP-afstemming inbegrepen.'
+    : 'Medicatie: geen aparte bundel geactiveerd (kan automatisch geactiveerd worden bij polyfarmacie/diabetes/renal/cognitie).';
+
+  if(buns.length === 0){
+    return `Geen bundels geselecteerd. Run lexicons → stel bundels voor → genereer zorgverleners → publiceer. ${stop}`;
+  }
+  return `Probleemgebieden: ${pbs.join(' · ')}. Zorgbundels: ${buns.join(' · ')}. ${medsLine} ${stop} Versie: voorlopig (v1) → finaliseren met ontslagbrief + finale medicatie + voorschriften.`;
 }
 
 function buildExecText(){
-  const needsHome = !isLightOk('home');
-  const base = [
-    '1) Reserveer capaciteit (thuisvpk/kine) met startdatum',
-    '2) Check hulpmiddelen/levering + mantelzorg-afspraken',
-    '3) Maak patiënt/mantelzorger overzicht + escalatiecontact'
-  ];
-  if(needsHome) base.unshift('⚠ THUIS geel: eerst thuisorganisatie oplossen (mantelzorg/hulpmiddelen/veiligheid).');
-  return base.join('  ');
+  const roles = computeRolesFromBundles();
+  const roleNames = roles.map(r => roleCatalog[r]?.title || r);
+  const homeOk = isLightOk('home');
+
+  const matchingSummary = roles.length
+    ? roles.map(r => {
+        const st = providersState[r]?.status || 'idle';
+        const label = st === 'matched' ? 'gematcht' : st === 'matching' ? 'matching' : st === 'blocked' ? 'geblokkeerd' : 'klaar';
+        return `${(roleCatalog[r]?.title||r)}=${label}`;
+      }).join(' · ')
+    : 'geen';
+
+  const top = homeOk
+    ? 'Uitvoering: startdata vastleggen + opdrachten publiceren naar matchmakingsplatform.'
+    : '⚠ THUIS geel: eerst thuisorganisatie (mantelzorg/hulpmiddelen/veiligheid) oplossen vóór activatie.';
+
+  return `${top}
+Zorgverleners: ${roleNames.length ? roleNames.join(', ') : '—'}.
+Matching: ${matchingSummary}.
+Verwijzing: publiceer jobs naar het matchmakingsplatform (Flexizorg) + opvolging via Nurseline.`;
 }
 
 document.getElementById('publish').addEventListener('click', () => {
-  const box = document.getElementById('publishBox');
   document.getElementById('planText').textContent = buildPlanText();
   document.getElementById('execText').textContent = buildExecText();
+  const box = document.getElementById('publishBox');
   box.classList.add('show');
   box.scrollIntoView({behavior:'smooth', block:'start'});
 });
+document.getElementById('hidePublish').addEventListener('click', () => {
+  document.getElementById('publishBox').classList.remove('show');
+});
 
-/* ---------- Simulations (buttons) ---------- */
-const simState = {
-  uploaded:false,
-  scraped:false,
-  questionnaire:false
-};
-
-function simUpload(){
-  simState.uploaded = true;
-  // day to 1, docs on
-  daySlider.value = 1;
-  dayLabel.textContent = 'Dag 1';
-  applyDocs(1);
-  // highlight flow1 first node
-  pulseKey('f1a');
-}
-function simScrape(){
-  simState.scraped = true;
-  // suggest lexicons from "medical"
-  // (demo) turn on polypharm + wound
-  setLexOn('polypharm', true);
-  setLexOn('wound', true);
-  pulseKey('f1b');
-  // show details
-  showDetails('d_f1');
-}
-function simQuestionnaire(){
-  simState.questionnaire = true;
-  // make THUIS yellow (not ok) to show stopper
-  setLight('home', false);
-  updateStopStatus();
-  pulseKey('f2a');
-  showDetails('d_f2');
-}
+/* ---------- Simulations ---------- */
 function setLexOn(lex, on){
   const el = document.querySelector(`.lex[data-lex="${lex}"]`);
   if(el) el.classList.toggle('on', !!on);
@@ -1078,34 +1218,68 @@ function showDetails(id){
   const el = document.getElementById(id);
   if(el) el.classList.add('show');
 }
-
 document.querySelectorAll('[data-sim]').forEach(btn => {
   btn.addEventListener('click', () => {
     const k = btn.getAttribute('data-sim');
-    if(k === 'upload') simUpload();
-    if(k === 'scrape') simScrape();
-    if(k === 'questionnaire') simQuestionnaire();
+    if(k === 'upload'){
+      daySlider.value = 1; dayLabel.textContent = 'Dag 1'; applyDocs(1);
+      pulseKey('f1a');
+    }
+    if(k === 'scrape'){
+      // simulate that medical data suggests: cardio + meds + infection + wound (demo)
+      setLexOn('cardio', true);
+      setLexOn('meds', true);
+      setLexOn('infection', true);
+      setLexOn('wound', true);
+      pulseKey('f1b');
+      showDetails('d_f1');
+    }
+    if(k === 'questionnaire'){
+      // make THUIS yellow for demo + suggest frailty/social/falls
+      setLight('home', false); updateStopStatus();
+      setLexOn('frailty', true);
+      setLexOn('social', true);
+      setLexOn('falls', true);
+      pulseKey('f2a');
+      showDetails('d_f2');
+    }
   });
 });
 
 document.getElementById('simulateAll').addEventListener('click', () => {
-  // step-by-step
   clearState();
-  setTimeout(simUpload, 150);
-  setTimeout(simScrape, 450);
-  setTimeout(simQuestionnaire, 750);
+  // timeline baseline
+  daySlider.value = 2; dayLabel.textContent = 'Dag 2'; applyDocs(2);
+  // simulate both flows
+  setTimeout(() => { pulseKey('f1a'); }, 120);
   setTimeout(() => {
-    // run lex, propose bundles, publish
-    document.getElementById('runLex').click();
-    document.getElementById('suggestBundles').click();
-    document.getElementById('publish').click();
-  }, 1050);
+    setLexOn('cardio', true);
+    setLexOn('meds', true);
+    setLexOn('infection', true);
+    setLexOn('wound', true);
+    pulseKey('f1b');
+  }, 320);
+  setTimeout(() => {
+    setLight('home', false);
+    updateStopStatus();
+    setLexOn('frailty', true);
+    setLexOn('social', true);
+    setLexOn('falls', true);
+    pulseKey('f2a');
+  }, 520);
+  // run lex -> suggest bundles -> providers -> matching -> publish
+  setTimeout(() => document.getElementById('runLex').click(), 720);
+  setTimeout(() => document.getElementById('suggestBundles').click(), 900);
+  setTimeout(() => document.getElementById('buildProviders').click(), 1080);
+  setTimeout(() => document.getElementById('startMatching').click(), 1260);
+  setTimeout(() => document.getElementById('publish').click(), 1700);
 });
 
 /* ---------- init ---------- */
 function init(){
   applyDocs(Number(daySlider.value));
   updateStopStatus();
+  renderProviders([]);
 }
 init();
 </script>
